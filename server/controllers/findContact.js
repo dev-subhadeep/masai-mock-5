@@ -1,9 +1,11 @@
 const Contact = require("../models/contact")
 
 const findContact = async (req, res) => {
-  const { _id } = req.params
+  const { firstname } = req.body
   try {
-    const contact = await Contact.findOne({ _id })
+    const contact = await Contact.findOne({
+      name: { $regex: firstname, $options: "i" },
+    })
     if (contact) {
       res.status(200).send({ contact })
     } else {
