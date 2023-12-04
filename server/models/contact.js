@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 
 const ContactSchema = mongoose.Schema({
-  first_name: String,
-  last_name: String,
+  name: String,
   email: String,
   phone: Number,
   label: String,
+  booked_slots: [],
 })
 
 const Contact = mongoose.model("contact", ContactSchema)
