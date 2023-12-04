@@ -16,13 +16,14 @@ import Contact from "./Contact"
 
 const Contacts = () => {
   const [data, setData] = useState([])
+  const [changed, setChanged] = useState(0)
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_BACKEND}/contact`)
       .then((res) => setData(res.data.contacts))
       .catch((error) => console.log(error))
-  }, [])
+  }, [changed])
   return (
     <div>
       <TableContainer>
@@ -37,7 +38,11 @@ const Contacts = () => {
             </Tr>
             {data.length
               ? data.map((contact) => (
-                  <Contact key={contact._id} {...contact} />
+                  <Contact
+                    key={contact._id}
+                    {...contact}
+                    handleDelete={() => setChanged((prev) => prev++)}
+                  />
                 ))
               : ""}
           </Thead>

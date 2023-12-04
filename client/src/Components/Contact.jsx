@@ -15,7 +15,16 @@ import {
   Box,
 } from "@chakra-ui/react"
 
-const Contact = ({ _id, name, email, phone, label }) => {
+import axios from "axios"
+
+const Contact = ({ _id, name, email, phone, label, handleDelete }) => {
+  const deleteContact = () => {
+    axios
+      .delete(`${import.meta.env.VITE_BACKEND}/contact/delete/${_id}`)
+      .then((res) => {
+        handleDelete()
+      })
+  }
   return (
     <Tr>
       <Td>{name}</Td>
@@ -28,7 +37,9 @@ const Contact = ({ _id, name, email, phone, label }) => {
             <Button colorScheme="green">Edit</Button>
           </Box>
           <Box mx={2}>
-            <Button colorScheme="red">Delete</Button>
+            <Button colorScheme="red" onClick={deleteContact}>
+              Delete
+            </Button>
           </Box>
         </Flex>
       </Td>
