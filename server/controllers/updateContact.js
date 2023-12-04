@@ -7,7 +7,7 @@ const updateContact = async (req, res) => {
       $set: { ...req.body },
     })
     if (contact) {
-      res.status(200).send({ message: "Contact Found", contact })
+      res.status(200).send({ message: "Contact Updated", contact })
     } else {
       res.status(400).send({ error: "Contact not found" })
     }

@@ -12,12 +12,14 @@ import {
   Input,
   Button,
   Select,
+  useToast,
 } from "@chakra-ui/react"
 
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const EditContact = () => {
+  const toast = useToast()
   let { _id } = useParams()
   const [formData, setFormData] = useState({})
   useEffect(() => {
@@ -47,6 +49,13 @@ const EditContact = () => {
       data: formData,
       url: `${import.meta.env.VITE_BACKEND}/contact/update/${_id}`,
     }).then((res) => {
+      toast({
+        title: res.data.message,
+        // description: "We've created your account for you.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
       navigate("/")
     })
   }
