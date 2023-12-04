@@ -15,14 +15,17 @@ import {
   Box,
 } from "@chakra-ui/react"
 
+import { useNavigate } from "react-router-dom"
+
 import axios from "axios"
 
 const Contact = ({ _id, name, email, phone, label, handleDelete }) => {
+  const navigate = useNavigate()
   const deleteContact = () => {
     axios
       .delete(`${import.meta.env.VITE_BACKEND}/contact/delete/${_id}`)
       .then((res) => {
-        handleDelete()
+        navigate("/")
       })
   }
   return (
@@ -34,7 +37,12 @@ const Contact = ({ _id, name, email, phone, label, handleDelete }) => {
       <Td>
         <Flex>
           <Box mx={2}>
-            <Button colorScheme="green">Edit</Button>
+            <Button
+              colorScheme="green"
+              onClick={() => navigate(`/edit/${_id}`)}
+            >
+              Edit
+            </Button>
           </Box>
           <Box mx={2}>
             <Button colorScheme="red" onClick={deleteContact}>
